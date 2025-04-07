@@ -1051,13 +1051,13 @@ OOP is a programming paradigm based on the concept of "objects", which contain: 
 
 Dart is a pure object-oriented language — even functions are objects!
 
-- 🔑 4 Pillars of OOP in Dart
+- ## 🔑 4 Pillars of OOP in Dart
   - Encapsulation	Hiding internal details and exposing only what’s needed
   - Inheritance	Reusing properties and methods from another class
   - Polymorphism	One interface, multiple implementations
   - Abstraction	Showing only essential details, hiding complexity
 
-- ✅ 1. Encapsulation
+- ## ✅ 1. Encapsulation
   - Keeping data safe and private inside a class using access modifiers.
   - _balance is private (starts with _)
   - Accessed only through getter/setter
@@ -1073,7 +1073,7 @@ Dart is a pure object-oriented language — even functions are objects!
         }
       }
     ```
-- ✅ 2. Inheritance
+- ## ✅ 2. Inheritance
   - Allows one class to inherit from another.
   - Dog gets sound() from Animal
   - Example:
@@ -1086,7 +1086,7 @@ Dart is a pure object-oriented language — even functions are objects!
           void bark() => print("Woof!");
         }
     ```
-- ✅ 3. Polymorphism
+- ## ✅ 3. Polymorphism
   - Same method name, different behavior based on the object.
   - Example:
     ```bash
@@ -1104,7 +1104,7 @@ Dart is a pure object-oriented language — even functions are objects!
           animal.sound();         // Output: Meow
         }
     ```
-- ✅ 4. Abstraction
+- ## ✅ 4. Abstraction
   - Use abstract classes or interfaces to hide complex logic.
   - Vehicle defines what to do
   - Car defines how to do it
@@ -1119,7 +1119,7 @@ Dart is a pure object-oriented language — even functions are objects!
           void start() => print("Car started");
         }
     ```
-- 🧱 Dart OOP Keywords Recap
+- ## 🧱 Dart OOP Keywords Recap
   - class	Defines an object structure
   - extends	Inheritance
   - implements	Interface implementation
@@ -1128,7 +1128,7 @@ Dart is a pure object-oriented language — even functions are objects!
   - this	Refers to current instance
   - super	Access parent class constructor/method
 
-- 🧱 1. Abstract Class
+- ## 🧱 1. Abstract Class
   An abstract class is a class that can’t be instantiated directly.
   
   It is meant to be inherited by other classes and usually contains abstract methods (methods without implementation).
@@ -1149,7 +1149,7 @@ Dart is a pure object-oriented language — even functions are objects!
     // Error ❌
     final animal = Animal(); // Abstract class can't be instantiated
   ```
-- 🧩 2. Interface in Dart
+- ## 🧩 2. Interface in Dart
   Dart doesn’t have a separate interface keyword like Java. 
   
   Instead, every class in Dart is also an interface by default.
@@ -1175,7 +1175,7 @@ Dart is a pure object-oriented language — even functions are objects!
         void swim() => print("Duck swims");
       }
   ```
-- 🙋‍♂️ 3. this Keyword
+- ## 🙋‍♂️ 3. this Keyword
   this refers to the current instance of a class. It helps you:
   - Access class variables/methods
   - Disambiguate between local and instance variables
