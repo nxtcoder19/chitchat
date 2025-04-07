@@ -118,7 +118,8 @@ Variables must be non-nullable by default, unless you say otherwise.
   
 - ## Diagram
 
-  <img width="731" alt="Screenshot 2025-04-06 at 10 31 09 AM" src="https://github.com/user-attachments/assets/833720d0-a72c-4dcb-ba90-ff49c1119b4f" />
+  <img width="736" alt="Screenshot 2025-04-06 at 7 59 35 PM" src="https://github.com/user-attachments/assets/2d32f70e-7a70-4562-a08c-039d7c025f90" />
+
 
   
 # 🧱 BuildContext?
@@ -793,4 +794,134 @@ The lifecycle of a Flutter widget depends on whether it is a Stateless or Statef
   
   <img width="749" alt="Screenshot 2025-04-06 at 9 54 11 AM" src="https://github.com/user-attachments/assets/b1b3ae62-40ca-4e7d-b61d-90927d8c60da" />
 
+# 🧪 Testing in Flutter
+- ✅ Unit Test:	Test individual functions or classes
+  ```bash
+      test('adds two numbers', () {
+        final sum = add(2, 3);
+        expect(sum, 5);
+      });
 
+  ```
+- ✅ Widget Test:	Test UI + interaction
+   ```bash
+      testWidgets('Counter increments smoke test', (tester) async {
+        await tester.pumpWidget(MyApp());
+        expect(find.text('0'), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+        expect(find.text('1'), findsOneWidget);
+      });
+
+   ```
+- ✅ Integration Test:	Test full app (UI + backend + flow)
+- ✅ bloc_test:
+  - bloc_test is a package that simplifies writing tests for BLoC classes
+  - it helps you to Trigger events, Expect emitted states aand Avoid boilerplate code
+  
+    ```bash
+        import 'package:flutter_test/flutter_test.dart';
+        import 'package:bloc_test/bloc_test.dart';
+        import 'counter_bloc.dart';
+        import 'counter_event.dart';
+        import 'counter_state.dart';
+
+        void main() {
+          group('CounterBloc', () {
+            blocTest<CounterBloc, CounterState>(
+              'emits [CounterState(1)] when IncrementEvent is added',
+              build: () => CounterBloc(),
+              act: (bloc) => bloc.add(IncrementEvent()),
+              expect: () => [CounterState(1)],
+            );
+          });
+        }
+    ```
+
+# 🔁 Architecture Pattern
+
+- ## 🧱 Clean Architecture
+    Clean Architecture separates code into layers for better scalability and testability:
+
+    Benefits: Easy to test, Modular and Clean separation of concerns
+
+    - ### Diagram
+      <img width="754" alt="Screenshot 2025-04-07 at 8 15 26 AM" src="https://github.com/user-attachments/assets/21588311-7536-4f59-979f-90e2d4e05205" />
+
+      
+- ## 🧱 MVC – Model View Controller
+  - Model     →  Handles data, business logic
+  - View      →  UI layer (Widgets in Flutter)
+  - Controller → Handles user input, updates model & view
+  - EX: Model: User class, View: UserScreen widget and Controller: A class/method that fetches user data and updates state
+  - Issues: Tight coupling between View & Controller
+  - Issues: Doesn't scale well for large apps
+
+- ## 🧱 MVP – Model View Presenter
+  - Model     → Data layer (API, DB)
+  - View      → UI layer (Stateless/Stateful Widgets)
+  - Presenter → Handles logic, updates View via interface
+  - The Presenter is more testable and independent of the UI framework.
+  - Difficult to separate View & Presenter because Flutter heavily integrates UI with logic in widgets.
+
+- ## 🧱 MVVM – Model View ViewModel
+  - Model       → API/data classes
+  - View        → UI widgets
+  - ViewModel   → Acts as bridge; holds logic/state and notifies the View
+  - Ex: Model: User, View: UserScreen and ViewModel: UserProvider (extends ChangeNotifier)
+
+- ## 🔁 Architecture Comparison
+
+  <img width="767" alt="Screenshot 2025-04-07 at 8 55 52 AM" src="https://github.com/user-attachments/assets/dddfffc1-04d0-4af0-aa66-a242ad6f013b" />
+
+
+
+# 1️⃣ SOLID Principles
+
+SOLID is an acronym for 5 core object-oriented design principles that make your code clean, scalable, and maintainable.
+
+- S – Single Responsibility: A class should do one thing.
+  - Example: Don’t mix API logic with UI. Keep your UserRepository, UserBloc, and UserScreen separate.
+- O – Open/Closed: Code should be open for extension, but closed for modification.
+  - Example: Add new UI themes using ThemeData, don’t modify the base app.
+- L – Liskov Substitution:	Subclasses should be usable wherever parent is expected.
+  - Example: If Bird has fly(), a Penguin shouldn't extend Bird if it can't fly.
+- I – Interface Segregation:	Don’t force classes to implement unused interfaces.
+  - Example: Use small, focused abstract classes or mixins.
+- D – Dependency Inversion:	High-level modules shouldn’t depend on low-level ones. Both should depend on abstractions.
+  - Example: Use abstract AuthService and inject concrete FirebaseAuthService via Provider/DI.
+
+# 2️⃣ Singleton Class in Dart
+
+A singleton ensures only one instance of a class exists during the app lifecycle.
+
+✅ Use singleton for: Caching, Global services (e.g., Logger, Analytics, AppConfig)
+
+  ```bash
+      class MyService {
+        static final MyService _instance = MyService._internal();
+
+        factory MyService() => _instance;
+
+        MyService._internal(); // private constructor
+      }
+      final service = MyService();
+  ```
+  
+# 3️⃣ Dependency Injection (DI)
+
+DI is when a class gets the objects it depends on from outside, rather than creating them itself.
+
+✅ Benefits: Loose coupling, Easier to test and Better architecture
+
+✅ In Flutter, use DI with: Provider, get_it and riverpod
+
+# 🔍 Serialization?
+Serialization is the process of converting a Dart object into a format like JSON or Map so it can be:
+- Sent over the network (e.g., via API)
+- Stored (e.g., in SharedPreferences, SQLite)
+- Deserialization is the reverse — converting JSON/Map back to a Dart object.
+
+  ```bash
+  flutter pub run build_runner build
+  ```
