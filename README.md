@@ -164,6 +164,113 @@ When the widget tree rebuilds (due to state change, navigation, etc.), **Flutter
 - To avoid unnecessary widget rebuilds
 - To differentiate between widgets of the same type
 
+
+# 🧭 Map?
+In Dart, a Map is a collection of key-value pairs.
+- Keys are unique
+- Values can be any type: JSON APIs, Local storage and Passing data between screens
+  ```bash
+    Map<String, dynamic> user = {
+      'name': 'Flutter Dev',
+      'age': 25,
+      'isActive': true,
+    };
+  ```
+- 🔸 Map Example:
+  ```bash
+      Map<String, String> fruits = {
+        'a': 'Apple',
+        'b': 'Banana',
+      };
+      print(fruits['a']); // Output: Apple
+      fruits['c'] = 'Cherry'; // Add
+      fruits['a'] = 'Avocado'; // Update
+      fruits.remove('b');
+  ```
+- 🔸 Loop Through Map
+  ```bash
+      fruits.forEach((key, value) {
+        print('$key: $value');
+      });
+
+      OR
+
+      for (var entry in fruits.entries) {
+        print('${entry.key}: ${entry.value}');
+      }
+  ```
+- 📤 Convert Object → Map (Manual)
+  ```bash
+      class User {
+        String name;
+        int age;
+
+        User({required this.name, required this.age});
+
+        Map<String, dynamic> toMap() {
+          return {
+            'name': name,
+            'age': age,
+          };
+        }
+      }
+  ```
+- 📥 Convert Map → Object
+  ```bash
+      factory User.fromMap(Map<String, dynamic> map) {
+        return User(
+          name: map['name'],
+          age: map['age'],
+        );
+      } 
+
+  ```
+- 🔁 Convert Map ↔️ JSON
+  ```bash
+      import 'dart:convert';
+
+      final userMap = {'name': 'Flutter', 'age': 3};
+      final jsonString = jsonEncode(userMap); // → JSON string
+
+      final parsedMap = jsonDecode(jsonString); // → Back to Map
+  ```
+  
+# 🔁 jsonEncode vs jsonDecode
+
+- jsonEncode()	Converts Dart object → JSON string, convert	Map, List, etc. to	JSON String
+- jsonDecode()	Converts JSON string → Dart object convert	JSON String to	Map, List, etc.
+- Example:
+  - 🔹 jsonEncode – Dart ➝ JSON
+    ```bash
+      import 'dart:convert';
+
+    void main() {
+      Map<String, dynamic> user = {
+        'name': 'Flutter',
+        'age': 3,
+        'isActive': true,
+      };
+
+      String jsonString = jsonEncode(user);
+      print(jsonString); // {"name":"Flutter","age":3,"isActive":true}
+    }
+
+    ```
+  - 🔹 jsonDecode – JSON ➝ Dart
+    ```bash
+        import 'dart:convert';
+
+        void main() {
+          String jsonString = '{"name":"Flutter","age":3,"isActive":true}';
+
+          Map<String, dynamic> user = jsonDecode(jsonString);
+          print(user['name']); // Flutter
+          print(user['age']); // 3
+        }
+
+    ```
+
+
 # 📦 Flutter Packages
 
 Packages are pre-built libraries on pub.dev that you can use to:
