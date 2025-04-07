@@ -1203,3 +1203,89 @@ Dart is a pure object-oriented language — even functions are objects!
 
   ```
   
+
+# 🧠 What is a Memory Leak?
+
+A memory leak occurs when your app holds on to objects in memory that it no longer needs — preventing the garbage collector from freeing up memory.
+
+- ## 🔥 In Android 9/10, leaks often happen due to:
+  - Unreleased Activity/Context
+  - Listeners not removed
+  - Static references to UI
+  - Platform channels in Flutter not cleaned properly
+- ## 🧰 Tools to Track Memory Leaks
+  - Open your Flutter app on a real device/emulator.
+  - Go to Android Studio > View > Tool Windows > Profiler
+  - Click Memory
+  - Perform actions in your app (navigate, open/close screens)
+  - Check: If memory usage keeps growing Or If objects (like Activities) aren’t getting GC’d (Garbage Collected)
+- ## 🔍 Common Memory Leak Fixes
+  - Avoid keeping a BuildContext in a long-living object (like singleton, service, etc.)
+  - Never pass context to async functions that could outlive the widget
+  - Always dispose controllers
+  - If using MethodChannel, ensure you're not holding references to Activity or Context after it's destroyed.
+- ✅ Checklist to Prevent Memory Leaks
+  - BuildContext	Don’t store globally or in async calls
+  - Controllers	Always dispose in dispose() method
+  - PlatformChannel	Clear handlers in onDetachedFromEngine
+  - Streams	Cancel subscriptions
+  - Listeners	Remove listeners when not needed
+  - Global variables	Don’t hold large objects unnecessarily
+
+# 🧠 Flutter Optimization?
+
+Optimizing your Flutter app helps:
+- ✅ Reduce UI jank (frame drops)
+- ✅ Improve battery life
+- ✅ Minimize memory usage
+- ✅ Reduce APK/IPA size
+- ✅ Boost startup speed
+
+- ## 🔟 Top Flutter Optimization Techniques
+  - 1️⃣ Use const Widgets Wherever Possible: const Text("Hello");
+    - Constant widgets are not rebuilt unnecessarily.
+    - Saves time and memory in widget tree rebuilds.
+  - 2️⃣ Avoid Rebuilding Unnecessary Widgets
+    - Use const, Builder, Consumer, or BlocBuilder smartly.
+    ```bash
+        // ✅ Better
+        BlocBuilder<Bloc, State>(
+          buildWhen: (prev, curr) => curr != prev,
+          builder: (context, state) => ...
+        );
+    ```
+  - 3️⃣ Use ListView.builder Instead of ListView
+    - ✅ Builds only visible items, lazy loads others.
+  - 4️⃣ Dispose Unused Controllers
+    - ✅ Prevents memory leaks and keeps memory low.
+    ```bash
+        @override
+        void dispose() {
+          textController.dispose();
+          super.dispose();
+        }
+    ```
+  - 5️⃣ Minimize Overuse of setState()
+    - Avoid rebuilding the entire widget tree.
+    - Update only specific parts using ValueNotifier, Bloc, Provider, etc.
+  - 6️⃣ Compress Images & Use cached_network_image
+    - Compress your images with tools like tinypng.com
+    - ✅ Saves memory and improves loading time.
+    ```bash
+        CachedNetworkImage(
+          imageUrl: "https://...",
+          placeholder: (ctx, url) => CircularProgressIndicator(),
+        )
+    ```
+  - 7️⃣ Use Flutter DevTools for Performance Profiling
+    - Identify janky frames
+    - Monitor widget rebuilds
+    - Check memory usage
+  - 8️⃣ Split Large Widgets into Smaller Components
+    - Break large widgets into reusable components for better rebuild control and testability.
+  - 9️⃣ Release Mode for Real Performance
+    - ✅ Disables debug checks, enables AOT compilation.
+  - 🔟 Reduce App Size
+    - Remove unused assets & packages
+    - Use ProGuard/R8 for Android
+    - Use flutter build apk --split-per-abi
