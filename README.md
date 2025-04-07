@@ -21,8 +21,21 @@ Flutter is an open-source UI software development toolkit created by Google. It 
 - Mobile (Android, iOS)
 - Web
 - Desktop (Windows, macOS, Linux)
+- - Flutter is built for 60+ FPS animations — Dart’s memory management keeps apps smooth.
 
 —all from a single codebase using the Dart programming language.
+
+# 🧠 What is Dart?
+Dart is a client-optimized programming language developed by Google for building fast apps on any platform (mobile, web, desktop, and server).
+
+- Object-Oriented
+- Syntax is familiar (like Java, JavaScript, Kotlin)
+- Strongly typed (with null safety)
+- Supports async (Future, Stream)
+- Compiles to native machine code (mobile) or JavaScript (web)
+- Fast Compilation: JIT + AOT
+- JIT (Just-in-Time)	During development	Enables Hot Reload ⚡
+- AOT (Ahead-of-Time)	Production build	Fast native performance ⚡
 
 # 🧱 Building Blocks of Flutter
 
@@ -1032,3 +1045,161 @@ Serialization is the process of converting a Dart object into a format like JSON
   ```bash
   flutter pub run build_runner build
   ```
+# 🧠 What is OOP (Object-Oriented Programming)?
+
+OOP is a programming paradigm based on the concept of "objects", which contain: Properties (fields/variables) and Methods (functions/behavior)
+
+Dart is a pure object-oriented language — even functions are objects!
+
+- 🔑 4 Pillars of OOP in Dart
+  - Encapsulation	Hiding internal details and exposing only what’s needed
+  - Inheritance	Reusing properties and methods from another class
+  - Polymorphism	One interface, multiple implementations
+  - Abstraction	Showing only essential details, hiding complexity
+
+- ✅ 1. Encapsulation
+  - Keeping data safe and private inside a class using access modifiers.
+  - _balance is private (starts with _)
+  - Accessed only through getter/setter
+  - Example:
+    ```bash
+      class BankAccount {
+        double _balance = 0; // private variable
+
+        double get balance => _balance;
+
+        void deposit(double amount) {
+          _balance += amount;
+        }
+      }
+    ```
+- ✅ 2. Inheritance
+  - Allows one class to inherit from another.
+  - Dog gets sound() from Animal
+  - Example:
+    ```bash
+        class Animal {
+          void sound() => print("Animal sound");
+        }
+
+        class Dog extends Animal {
+          void bark() => print("Woof!");
+        }
+    ```
+- ✅ 3. Polymorphism
+  - Same method name, different behavior based on the object.
+  - Example:
+    ```bash
+        class Animal {
+          void sound() => print("Generic sound");
+        }
+
+        class Cat extends Animal {
+          @override
+          void sound() => print("Meow");
+        }
+
+        void main() {
+          Animal animal = Cat();  // Polymorphism
+          animal.sound();         // Output: Meow
+        }
+    ```
+- ✅ 4. Abstraction
+  - Use abstract classes or interfaces to hide complex logic.
+  - Vehicle defines what to do
+  - Car defines how to do it
+  - Example:
+    ```bash
+        abstract class Vehicle {
+          void start();
+        }
+
+        class Car implements Vehicle {
+          @override
+          void start() => print("Car started");
+        }
+    ```
+- 🧱 Dart OOP Keywords Recap
+  - class	Defines an object structure
+  - extends	Inheritance
+  - implements	Interface implementation
+  - abstract	Define a contract, can’t be instantiated
+  - @override	Override methods from base class
+  - this	Refers to current instance
+  - super	Access parent class constructor/method
+
+- 🧱 1. Abstract Class
+  An abstract class is a class that can’t be instantiated directly.
+  
+  It is meant to be inherited by other classes and usually contains abstract methods (methods without implementation).
+  
+  ```bash
+      abstract class Animal {
+      void makeSound(); // abstract method (no body)
+    }
+
+    class Dog extends Animal {
+      @override
+      void makeSound() {
+        print("Woof!");
+      }
+    }
+    
+    
+    // Error ❌
+    final animal = Animal(); // Abstract class can't be instantiated
+  ```
+- 🧩 2. Interface in Dart
+  Dart doesn’t have a separate interface keyword like Java. 
+  
+  Instead, every class in Dart is also an interface by default.
+  
+  ```bash
+      class Flyable {
+        void fly() {
+          print("Flying...");
+        }
+      }
+
+      class Swimmable {
+        void swim() {
+          print("Swimming...");
+        }
+      }
+
+      class Duck implements Flyable, Swimmable {
+        @override
+        void fly() => print("Duck flies");
+
+        @override
+        void swim() => print("Duck swims");
+      }
+  ```
+- 🙋‍♂️ 3. this Keyword
+  this refers to the current instance of a class. It helps you:
+  - Access class variables/methods
+  - Disambiguate between local and instance variables
+
+  ```bash
+    class User {
+      String name;
+
+      User(this.name); // Uses 'this' implicitly
+
+      void printName() {
+        print(this.name); // Can also write just 'name'
+      }
+    }
+
+    OR
+    
+    class User {
+      String name;
+
+      User(String name) {
+        this.name = name; // using 'this' to differentiate
+      }
+    }
+
+  ```
+  
